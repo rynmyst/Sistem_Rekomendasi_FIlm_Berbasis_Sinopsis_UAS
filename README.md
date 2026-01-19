@@ -1,8 +1,3 @@
-Baik. Berikut **README versi terbaru** yang **sesuai dengan kondisi repository saat ini** (dataset lain sudah dihapus, hanya `movies_metadata.csv` yang digunakan).
-Bahasanya **formal**, **tanpa emoticon**, dan **siap langsung di-copy ke GitHub**.
-
----
-
 # Sistem Rekomendasi Film Berbasis Sinopsis Menggunakan Deep Learning dan Transformer
 
 ## Deskripsi Proyek
@@ -145,12 +140,4 @@ jupyter notebook FINAL.ipynb
 * File `movie_embeddings.pkl` dan `movie_nn_model.pkl` digunakan untuk mempercepat proses tanpa perlu membuat ulang embedding.
 * Sistem ini merupakan **content-based recommendation**, tidak menggunakan data interaksi pengguna.
 
----
 
-Jika mau, saya bisa:
-
-* Menyesuaikan README agar sesuai standar **paper / tugas akhir**
-* Membuat versi README **lebih singkat untuk GitHub**
-* Menyesuaikan bahasa README agar **selaras dengan laporan teknis dan paper**
-
-Tinggal bilang mau versi yang mana.
