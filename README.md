@@ -1,147 +1,156 @@
-# Sistem_Rekomendasi_Film_Berbasis_Sinopsis_Menggunakan_DeepLearning_dan_Transformer
-
-
-#  Movie Recommendation System (Transformer + Hybrid)
-
-Sistem rekomendasi film berbasis **Deep Learning** menggunakan **pre-trained Transformer** untuk memahami makna sinopsis film dan **Hybrid Scoring** untuk meningkatkan kualitas rekomendasi.
-
- **Deployed via Gradio (Notebook-based Interface)**
+Baik. Berikut **README versi terbaru** yang **sesuai dengan kondisi repository saat ini** (dataset lain sudah dihapus, hanya `movies_metadata.csv` yang digunakan).
+Bahasanya **formal**, **tanpa emoticon**, dan **siap langsung di-copy ke GitHub**.
 
 ---
 
-##  Fitur Utama
+# Sistem Rekomendasi Film Berbasis Sinopsis Menggunakan Deep Learning dan Transformer
 
-*  **Transformer-based Embedding** (SentenceTransformer)
-*  **Cosine Similarity** untuk pencarian film serupa
-*  **Hybrid Recommendation**
+## Deskripsi Proyek
 
-  * Similarity embedding
-  * Rating film
-  * Popularitas (jumlah vote)
-*  Visualisasi embedding (Norma & PCA)
-*  Antarmuka interaktif menggunakan **Gradio**
+Proyek ini mengimplementasikan **sistem rekomendasi film berbasis konten** dengan memanfaatkan **model Deep Learning Transformer** untuk memahami kemiripan semantik antar film berdasarkan **sinopsis**.
+Pendekatan yang digunakan adalah **Hybrid Recommendation System**, yaitu menggabungkan **embedding teks hasil Transformer** dengan **metadata film** seperti rating dan popularitas untuk meningkatkan kualitas rekomendasi.
+
+Aplikasi dikembangkan dalam bentuk **Notebook Python** dan dideploy menggunakan **Gradio** sebagai antarmuka interaktif.
 
 ---
 
-##  Struktur Project
+## Dataset
+
+Dataset bersumber dari **The Movies Dataset (Kaggle)** oleh Rounak Banik.
+Namun, dalam proyek ini **hanya satu file dataset yang digunakan**, yaitu:
+
+* `movies_metadata.csv`
+
+### Alasan Penggunaan Satu Dataset
+
+File `movies_metadata.csv` sudah mencakup informasi utama yang dibutuhkan untuk sistem rekomendasi berbasis konten, antara lain:
+
+* Judul film
+* Sinopsis (overview)
+* Genre
+* Tahun rilis
+* Rating dan jumlah voting
+* Popularitas
+
+Dataset lain seperti `credits.csv`, `ratings.csv`, dan `keywords.csv` **tidak digunakan** untuk:
+
+* Menghindari ketergantungan pada data user (collaborative filtering)
+* Menjaga fokus penelitian pada **content-based recommendation**
+* Mengurangi kompleksitas dan ukuran penyimpanan proyek
+
+---
+
+## Struktur Folder
 
 ```
- Tugas Proyek 2
-├── 📁 dataset
-│   ├── credits.csv
-│   ├── keywords.csv
-│   ├── links.csv
-│   ├── links_small.csv
-│   ├── movies_metadata.csv
-│   ├── ratings.csv
-│   └── ratings_small.csv
-│
+.
 ├── FINAL.ipynb
+├── README.md
+├── requirements.txt
 ├── movie_embeddings.pkl
 ├── movie_nn_model.pkl
-├── requirements.txt
-└── README.md
+└── dataset
+    └── movies_metadata.csv
 ```
 
 ---
 
-##  Arsitektur Sistem
+## Arsitektur Sistem
 
-1. **Input teks film** (sinopsis + genre + keyword)
-2. **Transformer Encoder** → embedding numerik
-3. **Nearest Neighbors (Cosine Similarity)**
-4. **Hybrid Scoring** (Similarity + Rating + Popularitas)
-5. **Output rekomendasi film**
+1. **Preprocessing Teks**
 
- *Tempat diagram arsitektur (opsional)*
+   * Sinopsis dan metadata digabung menjadi satu representasi teks (`combined_text`)
+   * Pembersihan teks dan normalisasi
 
-> `Gambar 1. Skema Sistem Rekomendasi Film Berbasis Transformer`
+2. **Transformer Embedding**
 
----
+   * Menggunakan model pre-trained `all-MiniLM-L6-v2`
+   * Menghasilkan embedding berdimensi 384 untuk setiap film
 
-##  Hasil Evaluasi
+3. **Similarity Search**
 
-*  **Baseline Rating**: 6.14 / 10
-*  **Hybrid Rating**: 6.91 / 10
-*  **Peningkatan Kinerja**: **+12.5%**
-*  Berdasarkan **10 test cases**
+   * Menggunakan cosine similarity
+   * Dipercepat dengan Nearest Neighbors (scikit-learn)
 
-✔Hybrid system terbukti lebih stabil dan relevan dibanding similarity murni.
+4. **Hybrid Scoring**
 
+   * Skor akhir merupakan kombinasi dari:
 
-
-## Cara Menjalankan
-
-<<<<<<< HEAD
-###  Install Dependencies
-=======
-### 1.  Install Dependencies
->>>>>>> 8874945ca688eae1b07bcefcb66004702cb9a495
-
-```bash
-pip install -r requirements.txt
-```
-
-Atau di notebook:
-
-```python
-!pip install -r requirements.txt
-```
-
-<<<<<<< HEAD
-### 2️Jalankan Notebook
-=======
-### 2️. Jalankan Notebook
->>>>>>> 8874945ca688eae1b07bcefcb66004702cb9a495
-
-Buka dan jalankan:
-
-```
-FINAL.ipynb
-```
-
-<<<<<<< HEAD
-### 3️Gunakan Aplikasi
-=======
-### 3️. Gunakan Aplikasi
->>>>>>> 8874945ca688eae1b07bcefcb66004702cb9a495
-
-* Gradio interface akan muncul otomatis
-* Masukkan **judul film**
-* Sistem menampilkan **rekomendasi film serupa**
+     * Similarity score (embedding)
+     * Rating film
+     * Popularitas (jumlah vote)
 
 ---
 
-## Teknologi
+## Evaluasi Sistem
+
+Evaluasi dilakukan menggunakan beberapa metrik:
+
+* **Semantic Similarity Score**
+* **Rating Quality**
+* **Diversity**
+* **Perbandingan Baseline vs Hybrid**
+
+Hasil evaluasi menunjukkan bahwa pendekatan Hybrid mampu meningkatkan kualitas rekomendasi dengan **peningkatan rata-rata rating sebesar 12.5%** dibandingkan metode baseline.
+
+---
+
+## Teknologi yang Digunakan
 
 * Python
 * Sentence Transformers
-* HuggingFace Transformers
 * Scikit-learn
-* Pandas, NumPy
+* Pandas & NumPy
 * Matplotlib
 * Gradio
 
 ---
 
-##  Contoh Input
+## Deployment
 
-```
-Toy Story
-```
+Aplikasi dijalankan melalui **Gradio Interface** yang terdapat di dalam notebook:
 
-##  Contoh Output
+* File utama: `FINAL.ipynb`
+* Jalankan seluruh cell hingga bagian Gradio
+* Aplikasi akan menampilkan antarmuka web interaktif untuk rekomendasi film
 
-* Toy Story 2 (1999)
-* Toy Story 3 (2010)
-* The 41–Year–Old Virgin Who Knocked Up Sarah Marshall and Felt Superbad About It (2010)
-* Child's Play 3 (1991)
-* Firestarter (1984)
 ---
 
-##  Catatan
+## Cara Menjalankan Proyek
 
-Proyek ini dikembangkan untuk **tujuan akademik** dan eksplorasi sistem rekomendasi berbasis **Deep Learning**.
+1. Clone repository:
 
+```bash
+git clone https://github.com/rynmyst/Sistem_Rekomendasi_FIlm_Berbasis_Sinopsis_UAS.git
+```
 
+2. Install dependencies:
 
+```bash
+pip install -r requirements.txt
+```
+
+3. Jalankan notebook:
+
+```bash
+jupyter notebook FINAL.ipynb
+```
+
+4. Jalankan semua cell hingga Gradio interface muncul.
+
+---
+
+## Catatan
+
+* File `movie_embeddings.pkl` dan `movie_nn_model.pkl` digunakan untuk mempercepat proses tanpa perlu membuat ulang embedding.
+* Sistem ini merupakan **content-based recommendation**, tidak menggunakan data interaksi pengguna.
+
+---
+
+Jika mau, saya bisa:
+
+* Menyesuaikan README agar sesuai standar **paper / tugas akhir**
+* Membuat versi README **lebih singkat untuk GitHub**
+* Menyesuaikan bahasa README agar **selaras dengan laporan teknis dan paper**
+
+Tinggal bilang mau versi yang mana.
